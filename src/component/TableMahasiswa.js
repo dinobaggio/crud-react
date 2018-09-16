@@ -17,16 +17,7 @@ class TableMahasiswa extends Component {
               </tr>
             </thead>
             <tbody>
-              {dataList.map(({nim, nama, umur, id}) => {
-                return (
-                  <tr key={id}>
-                    <td>{nim}</td>
-                    <td>{nama}</td>
-                    <td>{umur}</td>
-                    <td><TombolEdit /><TombolDelete /></td>
-                  </tr>
-                );
-              })}
+              <AllDataList {...props}/>
             </tbody>
             <tfoot>
               <tr>
@@ -42,9 +33,11 @@ class TableMahasiswa extends Component {
   }
 }
 
-let TombolEdit = () => {
+let TombolEdit = (props) => {
   return (
-    <button>Edit</button>
+    <button onClick={() => {
+      props.onEditClick(props.id)
+    }}>Edit</button>
   );
 }
 
@@ -52,6 +45,19 @@ let TombolDelete = () => {
   return (
     <button>X</button>
   );
+}
+
+let AllDataList = (props) => {
+  return props.dataList.map(({nim, nama, umur, id}) => {
+    return (
+      <tr key={id}>
+        <td>{nim}</td>
+        <td>{nama}</td>
+        <td>{umur}</td>
+        <td><TombolEdit id={id} onEditClick={props.onEditClick} /><TombolDelete /></td>
+      </tr>
+    );
+  })
 }
 
 export default TableMahasiswa;

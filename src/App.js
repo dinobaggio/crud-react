@@ -12,7 +12,8 @@ class App extends Component {
     newNim: '',
     newNama: '',
     newUmur: '',
-    loaded: false
+    loaded: false,
+    editId: ''
   }
   actions = {
     syncAllData: () => {
@@ -49,6 +50,11 @@ class App extends Component {
         newNim: '',
         newNama: '',
         newUmur: ''
+      })
+    },
+    onEditClick: (id) => {
+      this.setState({
+        editId: id
       })
     }
   }
