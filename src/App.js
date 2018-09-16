@@ -3,12 +3,15 @@ import {TableMahasiswa, AddData} from './component';
 import db from './db/mockDB';
 
 const toArray = obj => Object.keys(obj).map(key=> ({...obj[key], id: key}));
-const sortByTs = allData => toArray(allData).sort((a, b)=> b.ts - a.ts);
+const sortByNim = allData => toArray(allData).sort((a, b)=> a.nim - b.nim);
 
 class App extends Component {
   state = {
     allData: {},
     dataList: [],
+    newNim: '',
+    newNama: '',
+    newUmur: '',
     loaded: false
   }
   actions = {
@@ -17,9 +20,36 @@ class App extends Component {
         this.setState({
           allData,
           loaded: true,
-          dataList: sortByTs(allData)
+          dataList: sortByNim(allData)
         })
       });
+    },
+    onChangeNim: nim => {
+      this.setState({
+        newNim:nim
+      })
+    },
+    onChangeNama: nama => {
+      this.setState({
+        newNama:nama
+      })
+    },
+    onChangeUmur: umur => {
+      this.setState({
+        newUmur:umur
+      })
+    },
+    submit: () => {
+      db.addData({
+        nim:this.state.newNim,
+        nama:this.state.newNama,
+        umur:this.state.newUmur
+      })
+      this.setState({
+        newNim: '',
+        newNama: '',
+        newUmur: ''
+      })
     }
   }
   componentDidMount() {
@@ -32,7 +62,7 @@ class App extends Component {
     if (!state.loaded) return <div>Loading ....</div>
     return (
       <div>
-        <AddData />
+        <AddData {...state} {...actions} />
         <TableMahasiswa {...state} {...actions} />
       </div>
     );
