@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 class EditData extends Component {
   render() {
-    console.log(this.props);
     let id = this.props.editId;
     let nim = this.props.editNim;
     let nama = this.props.editNama;
