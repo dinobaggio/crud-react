@@ -70,6 +70,9 @@ class App extends Component {
         newUmur: ''
       })
     },
+    deleteData: function () {
+      db.deleteData(this.id);
+    },
     onEditClick: (id) => {
       let {nim, nama, umur} = this.state.allData[id]
       this.setState({

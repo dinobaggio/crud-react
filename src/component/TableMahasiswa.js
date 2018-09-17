@@ -4,7 +4,6 @@ import EditData from './EditData';
 class TableMahasiswa extends Component {
   render() {
     let {props} = this;
-    let dataList = props.dataList;
     return (
       <div>
         <h4>Table Mahasiswa</h4>
@@ -42,9 +41,9 @@ let TombolEdit = (props) => {
   );
 }
 
-let TombolDelete = () => {
+let TombolDelete = (props) => {
   return (
-    <button>X</button>
+    <button onClick={props.deleteData.bind({id:props.id})}>X</button>
   );
 }
 
@@ -62,7 +61,7 @@ let AllDataList = (props) => {
         <td>{nim}</td>
         <td>{nama}</td>
         <td>{umur}</td>
-        <td><TombolEdit id={id} onEditClick={props.onEditClick} /><TombolDelete /></td>
+        <td><TombolEdit id={id} onEditClick={props.onEditClick} /><TombolDelete id={id} deleteData={props.deleteData} /></td>
       </tr>
     );
   });
