@@ -12,6 +12,9 @@ class App extends Component {
     newNim: '',
     newNama: '',
     newUmur: '',
+    editNim: '',
+    editNama:'',
+    editUmur:'',
     loaded: false,
     editId: ''
   }
@@ -40,6 +43,21 @@ class App extends Component {
         newUmur:umur
       })
     },
+    onChangeEditNim: nim => {
+      this.setState({
+        editNim:nim
+      });
+    },
+    onChangeEditNama: nama => {
+      this.setState({
+        editNama:nama
+      });
+    },
+    onChangeEditUmur: umur => {
+      this.setState({
+        editUmur:umur
+      });
+    },
     submit: () => {
       db.addData({
         nim:this.state.newNim,
@@ -53,9 +71,28 @@ class App extends Component {
       })
     },
     onEditClick: (id) => {
+      let {nim, nama, umur} = this.state.allData[id]
       this.setState({
-        editId: id
-      })
+        editId: id,
+        editNim: nim,
+        editNama: nama,
+        editUmur: umur
+      });
+    },
+    onSaveClick: () => {
+      let {editId, editNim, editNama, editUmur} = this.state;
+      db.updateData(editId, {
+        nim:editNim,
+        nama:editNama,
+        umur:editUmur
+      });
+
+      this.setState({
+        editId: '',
+        editNim: '',
+        editNama: '',
+        editUmur: ''
+      });
     }
   }
   componentDidMount() {
@@ -65,6 +102,7 @@ class App extends Component {
 
   render() {
     let {state, actions} = this;
+    console.log(state.editId)
     if (!state.loaded) return <div>Loading ....</div>
     return (
       <div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './table_css.css';
+import EditData from './EditData';
 class TableMahasiswa extends Component {
   render() {
     let {props} = this;
@@ -47,8 +48,15 @@ let TombolDelete = () => {
   );
 }
 
+
 let AllDataList = (props) => {
+  let editId = props.editId;
   return props.dataList.map(({nim, nama, umur, id}) => {
+    if (editId == id) {
+      return (
+        <EditData {...props} />
+      );
+    }
     return (
       <tr key={id}>
         <td>{nim}</td>
@@ -57,7 +65,7 @@ let AllDataList = (props) => {
         <td><TombolEdit id={id} onEditClick={props.onEditClick} /><TombolDelete /></td>
       </tr>
     );
-  })
+  });
 }
 
 export default TableMahasiswa;
